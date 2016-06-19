@@ -9,6 +9,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
+import com.example.metricslogger.MetricsLog;
+
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -46,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @MetricsLog(category = "Post", action = "Like")
     private void likePost(long id) {
         Log.d(TAG, "likePost: id=" + id);
     }

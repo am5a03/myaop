@@ -22,20 +22,20 @@ public class MetricsRuntimeAspect {
      *
      * Not necessary an annotation, actually you can define any methods here
      */
-    @Pointcut("execution(@com.example.metricslogger.Metrics * *(..))")
+    @Pointcut("execution(@com.example.metricslogger.MetricsLog * *(..))")
     public void methodAnnotatedWithMetricsLog() {};
 
     /**
      * Similar rules apply for constructor methods
      */
-    @Pointcut("execution(@com.example.metricslogger.Metrics *.new(..))")
+    @Pointcut("execution(@com.example.metricslogger.MetricsLog *.new(..))")
     public void constructorAnnotatedWithMetricsLog() {};
 
     /**
      * The @Around annotation provides a feature like 'grouping' different pointcuts you defined above
      * Actually you can write the AspectJ syntax like
      *
-     * execution(@com.example.metricslogger.Metrics * *(..)) || execution(@com.example.metricslogger.Metrics *.new(..))
+     * execution(@com.example.metricslogger.MetricsLog * *(..)) || execution(@com.example.metricslogger.MetricsLog *.new(..))
      *
      * but this is clumsy and not nice
      */
@@ -48,7 +48,17 @@ public class MetricsRuntimeAspect {
         String category = metricsLogAnnotation.category();
         String action = metricsLogAnnotation.action();
 
-        MetricsLogger.logEvent(category, action, 0);
+        Object[] obj = joinPoint.getArgs(); // Get function arguments
+
+        long value = 0;
+        for (Object anObj : obj) {
+            if (anObj instanceof Long) {
+                value = (Long) anObj; // Just a naive determination
+                break;
+            }
+        }
+
+        MetricsLogger.logEvent(category, action, value);
 
         return result;
     }
