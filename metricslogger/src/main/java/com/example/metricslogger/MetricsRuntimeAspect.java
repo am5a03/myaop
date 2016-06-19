@@ -5,6 +5,7 @@ import android.util.Log;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 
@@ -63,12 +64,5 @@ public class MetricsRuntimeAspect {
         MetricsLogger.logEvent(category, action, value);
 
         return result;
-    }
-
-
-    @Around("call(* thisFunctionShouldDoNothing(..))")
-    public Object doNothing(ProceedingJoinPoint joinPoint) throws Throwable {
-        Log.d("Test", "doNothing: ");
-        return joinPoint.proceed();
     }
 }

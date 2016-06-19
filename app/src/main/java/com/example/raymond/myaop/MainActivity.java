@@ -49,6 +49,16 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
     @MetricsLog(category = "Post", action = "Like")
     private void likePost(long id) {
         Log.d(TAG, "likePost: id=" + id);
