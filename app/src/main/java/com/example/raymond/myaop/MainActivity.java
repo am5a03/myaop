@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 likePost(position);
+                thisFunctionShouldDoNothing();
             }
         });
     }
@@ -51,6 +52,10 @@ public class MainActivity extends AppCompatActivity {
     @MetricsLog(category = "Post", action = "Like")
     private void likePost(long id) {
         Log.d(TAG, "likePost: id=" + id);
+    }
+
+    private void thisFunctionShouldDoNothing() {
+        //haha
     }
 
 }

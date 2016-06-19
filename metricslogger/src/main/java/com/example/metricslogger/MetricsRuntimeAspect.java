@@ -1,5 +1,7 @@
 package com.example.metricslogger;
 
+import android.util.Log;
+
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -16,7 +18,7 @@ public class MetricsRuntimeAspect {
      * So we here to define our Pointcut, to let the AspectJ plugin know
      * where it should weave (inject) our advice (code).
      *
-     * The expression 'execution(com.example.metricslogger.Metrics * *(..))'
+     * The expression (Jointpoint signature) 'execution(com.example.metricslogger.Metrics * *(..))'
      * shows that code should be weaved whenever any method '* *(..)' is annotated with the
      * '@com.example.metricslogger.Metrics' annotation
      *
@@ -61,5 +63,12 @@ public class MetricsRuntimeAspect {
         MetricsLogger.logEvent(category, action, value);
 
         return result;
+    }
+
+
+    @Around("call(* thisFunctionShouldDoNothing(..))")
+    public Object doNothing(ProceedingJoinPoint joinPoint) throws Throwable {
+        Log.d("Test", "doNothing: ");
+        return joinPoint.proceed();
     }
 }
